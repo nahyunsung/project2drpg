@@ -36,8 +36,14 @@ public class PlayerControllerExample : MonoBehaviour
         
         if (move != Vector3.zero)
         {
-            Debug.Log(move);
-            gameObject.transform.forward = move;
+            if(move.x == -1)
+            {
+                gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+            else
+            {
+                gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
         }
         
         // bool jumpPress = playerInput.Player.Jump.IsPressed();
