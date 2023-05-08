@@ -40,6 +40,27 @@ public class PlayerControllerExample : MonoBehaviour
         Move();
     }
 
+    public void OnAttackDown()
+    {
+        anim.SetBool("isAttack", true);
+        //Debug.Log(anim.GetBool("isAttack"));
+    }
+
+    public void OnAttackUp()
+    {
+        anim.SetBool("isAttack", false);
+    }
+
+    public void OnShieldDown()
+    {
+        anim.SetBool("isShield", true);
+    }
+
+    public void OnShieldUp()
+    {
+        anim.SetBool("isShield", false);
+    }
+
     private void OnEnable()
     {
         playerInput.Enable();
