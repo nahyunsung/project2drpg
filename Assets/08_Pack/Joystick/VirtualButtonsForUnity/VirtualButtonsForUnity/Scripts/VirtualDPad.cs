@@ -50,7 +50,7 @@ public class VirtualDPad : OnScreenControl, IPointerDownHandler, IPointerUpHandl
     {
         if (eventData == null)
             throw new System.ArgumentNullException(nameof(eventData));
-
+        
         OnDrag(eventData);
     }
 
@@ -74,6 +74,7 @@ public class VirtualDPad : OnScreenControl, IPointerDownHandler, IPointerUpHandl
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        
         handle.anchoredPosition = startPos;
         SendValueToControl(Vector2.zero);
     }
