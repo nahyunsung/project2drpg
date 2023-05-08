@@ -10,13 +10,14 @@ public class PlayerControllerExample : MonoBehaviour
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] public Animator anim;
+    [SerializeField] private Transform dunposition;
 
     protected CharacterController controller;
     protected PlayerActionsExample playerInput;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     Vector3 move;
-
+    bool isDunGo = false;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -38,6 +39,11 @@ public class PlayerControllerExample : MonoBehaviour
     private void Update()
     {
         Move();
+        if (isDunGo)
+        {
+            gameObject.transform.localPosition = dunposition.position;
+            isDunGo = false;
+        }
     }
 
     public void OnAttackDown()
@@ -59,6 +65,11 @@ public class PlayerControllerExample : MonoBehaviour
     public void OnShieldUp()
     {
         anim.SetBool("isShield", false);
+    }
+
+    public void DungeonGo()
+    {
+        isDunGo = true;
     }
 
     private void OnEnable()

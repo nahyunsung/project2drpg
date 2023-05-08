@@ -30,6 +30,7 @@ public class BuildingState : MonoBehaviour
         if(other.tag == "Player")
         {
             ui.SendMessage("InteractionButtonSetTrue");
+            ui.stateNum = (int)state;
         }
     }
 

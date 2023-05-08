@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UiManager : MonoBehaviour
 {
     public GameObject InteractionButton;
+    public int stateNum;
 
     void Start()
     {
@@ -25,5 +26,23 @@ public class UiManager : MonoBehaviour
     public void InteractionButtonSetFalse()
     {
         InteractionButton.SetActive(false);
+    }
+
+    public void OnInteractionButtonDown()
+    {
+        switch (stateNum)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                GameObject.FindWithTag("Player").GetComponent<PlayerControllerExample>().SendMessage("DungeonGo");
+                break;
+            default:
+                break;
+        }
     }
 }
