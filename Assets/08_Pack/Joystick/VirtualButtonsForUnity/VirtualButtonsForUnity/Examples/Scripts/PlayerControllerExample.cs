@@ -82,7 +82,7 @@ public class PlayerControllerExample : MonoBehaviour
         Vector2 movement = playerInput.Player.Move.ReadValue<Vector2>();
         move = new Vector3(movement.x, 0, movement.y);
         controller.Move(move * Time.deltaTime * playerSpeed);
-        Debug.Log(move);
+        //Debug.Log(move);
         
 
         if (move != Vector3.zero)
