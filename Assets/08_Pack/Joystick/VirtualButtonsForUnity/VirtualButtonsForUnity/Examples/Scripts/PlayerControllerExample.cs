@@ -5,6 +5,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerControllerExample : MonoBehaviour
 {
+    public enum PlayerState
+    {
+        idle,
+        run,
+        attack,
+        shield
+    }
 
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
@@ -12,6 +19,7 @@ public class PlayerControllerExample : MonoBehaviour
     [SerializeField] public Animator anim;
     [SerializeField] private Transform dunposition;
     [SerializeField] private List<Material> mat;
+    [SerializeField] private GameObject attackBox;
 
     protected CharacterController controller;
     protected PlayerActionsExample playerInput;
@@ -20,6 +28,7 @@ public class PlayerControllerExample : MonoBehaviour
     Vector3 move;
     bool isDunGo = false;
     bool isDunExit = false;
+    public PlayerState playerState = PlayerState.idle;
 
     private void Awake()
     {
@@ -41,7 +50,12 @@ public class PlayerControllerExample : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        if(playerState == PlayerState.idle || playerState == PlayerState.run)
+        {
+            Move();
+        }
+
+
         if (isDunGo)
         {
             gameObject.transform.localPosition = dunposition.position;
@@ -59,23 +73,35 @@ public class PlayerControllerExample : MonoBehaviour
 
     public void OnAttackDown()
     {
-        anim.SetBool("isAttack", true);
-        //Debug.Log(anim.GetBool("isAttack"));
+        if(playerState == PlayerState.idle)
+        {
+            playerState = PlayerState.attack;
+            anim.SetBool("isAttack", true);
+            attackBox.SetActive(true);
+            //Debug.Log(anim.GetBool("isAttack"));
+        }
     }
 
     public void OnAttackUp()
     {
         anim.SetBool("isAttack", false);
+        attackBox.SetActive(false);
+        playerState = PlayerState.idle;
     }
 
     public void OnShieldDown()
     {
-        anim.SetBool("isShield", true);
+        if(playerState == PlayerState.idle)
+        {
+            playerState = PlayerState.shield;
+            anim.SetBool("isShield", true);
+        }
     }
 
     public void OnShieldUp()
     {
         anim.SetBool("isShield", false);
+        playerState = PlayerState.idle;
     }
 
     public void DungeonGo()
@@ -114,7 +140,7 @@ public class PlayerControllerExample : MonoBehaviour
 
         if (move != Vector3.zero)
         {
-            
+            playerState = PlayerState.run;
             if (move.x == -1)
             {
                 gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
@@ -123,6 +149,10 @@ public class PlayerControllerExample : MonoBehaviour
             {
                 gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
+        }
+        else
+        {
+            playerState = PlayerState.idle;
         }
         
 

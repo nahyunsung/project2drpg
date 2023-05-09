@@ -41,9 +41,15 @@ public class GameData : MonoBehaviour
 
     public void LoadData()
     {
-        string jsonData = File.ReadAllText(Application.persistentDataPath + "/PlayerData.json");
-
-        PlayerData myData = JsonUtility.FromJson<PlayerData>(jsonData);
-        myData.GetData();
+        try
+        {
+            string jsonData = File.ReadAllText(Application.persistentDataPath + "/PlayerData.json");
+            PlayerData myData = JsonUtility.FromJson<PlayerData>(jsonData);
+            myData.GetData();
+        }
+        catch(Exception ex)
+        {
+            //SaveData();
+        }
     }
 }
