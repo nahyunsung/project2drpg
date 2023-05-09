@@ -86,8 +86,10 @@ public class PlayerControllerExample : MonoBehaviour
 
         if(playercurHp < 0)
         {
-            playercurHp = playerMaxHp;
             gameObject.transform.localPosition = new Vector3(0, 0, 0);
+            RenderSettings.skybox = mat[0];
+            playercurHp = playerMaxHp;
+            Heart.value = playercurHp / playerMaxHp;
         }
     }
 
