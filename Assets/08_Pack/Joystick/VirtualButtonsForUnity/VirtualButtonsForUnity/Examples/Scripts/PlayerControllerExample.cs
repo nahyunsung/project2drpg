@@ -11,6 +11,7 @@ public class PlayerControllerExample : MonoBehaviour
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] public Animator anim;
     [SerializeField] private Transform dunposition;
+    [SerializeField] private List<Material> mat;
 
     protected CharacterController controller;
     protected PlayerActionsExample playerInput;
@@ -42,6 +43,7 @@ public class PlayerControllerExample : MonoBehaviour
         if (isDunGo)
         {
             gameObject.transform.localPosition = dunposition.position;
+            RenderSettings.skybox = mat[1];
             isDunGo = false;
         }
     }
