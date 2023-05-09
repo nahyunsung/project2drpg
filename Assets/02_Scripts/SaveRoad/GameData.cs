@@ -21,7 +21,7 @@ public class GameData : MonoBehaviour
 {
     void Start()
     {
-        LoadData();
+        SaveData();
     }
 
     public void SaveData()

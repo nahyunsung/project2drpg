@@ -2991,8 +2991,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1258596081}
-  - {fileID: 478317808}
   - {fileID: 1879973323}
+  - {fileID: 478317808}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12307,7 +12307,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 416378131}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.085, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12325,8 +12325,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.3702621, y: 2.1157157, z: 1.7511797}
-  m_Center: {x: 0.6181526, y: -0.26311553, z: 0.47314572}
+  m_Size: {x: 1.580368, y: 2.1157157, z: 1.7511797}
+  m_Center: {x: 0.72320557, y: -0.26311553, z: 0.47314572}
 --- !u!1001 &420513468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14332,7 +14332,7 @@ GameObject:
   - component: {fileID: 478317808}
   - component: {fileID: 478317809}
   m_Layer: 0
-  m_Name: characterCollider
+  m_Name: characterHitCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14351,7 +14351,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 87861083}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &478317809
 BoxCollider:
@@ -26433,7 +26433,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.12993279, y: -0.00000001706052, z: 0.0000000022356732, w: 0.9915228}
+  m_LocalRotation: {x: 0.12993279, y: 0.000000017060517, z: -0.0000000022356728, w: 0.9915228}
   m_LocalPosition: {x: -9.71, y: 2, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -48898,7 +48898,7 @@ GameObject:
   - component: {fileID: 1807013203}
   - component: {fileID: 1807013204}
   m_Layer: 0
-  m_Name: SkeletonAttackColider
+  m_Name: SkeletonBodyColider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50990,7 +50990,7 @@ GameObject:
   - component: {fileID: 1879973323}
   - component: {fileID: 1879973324}
   m_Layer: 0
-  m_Name: characterHitColider
+  m_Name: characterBodyColider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51009,7 +51009,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 87861083}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1879973324
 BoxCollider:
@@ -57112,7 +57112,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2094775975}
-  m_LocalRotation: {x: 0.12993279, y: -0.00000001706052, z: 0.0000000022356732, w: 0.9915228}
+  m_LocalRotation: {x: 0.12993279, y: 0.000000017060517, z: -0.0000000022356728, w: 0.9915228}
   m_LocalPosition: {x: -9.71, y: 2, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
