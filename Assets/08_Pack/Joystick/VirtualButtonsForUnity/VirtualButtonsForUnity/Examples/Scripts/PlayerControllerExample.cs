@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerControllerExample : MonoBehaviour
 {
@@ -29,11 +30,13 @@ public class PlayerControllerExample : MonoBehaviour
     bool isDunGo = false;
     bool isDunExit = false;
     public PlayerState playerState = PlayerState.idle;
+    public Slider Heart;
 
     public int playerLV = 1;
     public float playerAttack;
     public float playerLvUpMoney;
-
+    public float playerMaxHp;
+    public float playercurHp;
 
     private void Awake()
     {
@@ -43,6 +46,9 @@ public class PlayerControllerExample : MonoBehaviour
 
         playerLvUpMoney = (10 * ((Mathf.Pow(1.06f, 10) - Mathf.Pow(1.06f, 10 + playerLV)) / (1 - 1.06f)));
         playerAttack = playerLvUpMoney * 0.4f;
+        playerMaxHp = playerLvUpMoney * 2;
+        playercurHp = playerMaxHp;
+        Heart.value = playercurHp / playerMaxHp;
     }
 
     private void FixedUpdate()

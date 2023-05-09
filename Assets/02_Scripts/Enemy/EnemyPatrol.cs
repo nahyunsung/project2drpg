@@ -10,7 +10,7 @@ public class EnemyPatrol : MonoBehaviour
     public GameObject pointB;
     private Rigidbody rb;
     [SerializeField] private Animator anim;
-    private Transform currentPoint;
+    public Transform currentPoint;
     public float speed;
     public Slider heartSlider;
 
@@ -67,7 +67,7 @@ public class EnemyPatrol : MonoBehaviour
         }
     }
 
-    private void flip()
+    public void flip()
     {
         Vector3 localScale = transform.localScale;
         localScale.x *= -1;

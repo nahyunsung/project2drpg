@@ -8,6 +8,31 @@ public class EnemyDetectionCheak : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        enemyPatrol.enemyData.enemyState = EnemyData.EnemyState.targetmove;
+        if(other.tag == "Player")
+        {
+            enemyPatrol.enemyData.enemyState = EnemyData.EnemyState.targetmove;
+            Debug.Log("stay");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            /*
+            if (Vector2.Distance(enemyPatrol.transform.position, enemyPatrol.currentPoint.position) < 0.5f && enemyPatrol.currentPoint == enemyPatrol.pointB.transform)
+            {
+                enemyPatrol.flip();
+                enemyPatrol.currentPoint = enemyPatrol.pointA.transform;
+            }
+            if (Vector2.Distance(enemyPatrol.transform.position, enemyPatrol.currentPoint.position) < 0.5f && enemyPatrol.currentPoint == enemyPatrol.pointA.transform)
+            {
+                enemyPatrol.flip();
+                enemyPatrol.currentPoint = enemyPatrol.pointB.transform;
+            }
+            */
+            enemyPatrol.enemyData.enemyState = EnemyData.EnemyState.idle;
+
+        }
     }
 }
