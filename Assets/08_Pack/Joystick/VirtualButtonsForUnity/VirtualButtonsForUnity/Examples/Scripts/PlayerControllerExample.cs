@@ -30,10 +30,19 @@ public class PlayerControllerExample : MonoBehaviour
     bool isDunExit = false;
     public PlayerState playerState = PlayerState.idle;
 
+    public int playerLV = 1;
+    public float playerAttack;
+    public float playerLvUpMoney;
+
+
     private void Awake()
     {
+        gameObject.transform.position = new Vector3(0, 0, 0);
         controller = GetComponent<CharacterController>();
         playerInput = new PlayerActionsExample();
+
+        playerLvUpMoney = (10 * ((Mathf.Pow(1.06f, 10) - Mathf.Pow(1.06f, 10 + playerLV)) / (1 - 1.06f)));
+        playerAttack = playerLvUpMoney * 0.4f;
     }
 
     private void FixedUpdate()
@@ -68,7 +77,6 @@ public class PlayerControllerExample : MonoBehaviour
             RenderSettings.skybox = mat[0];
             isDunExit = false;
         }
-        
     }
 
     public void OnAttackDown()

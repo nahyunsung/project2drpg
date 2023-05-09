@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class EnemyCheak : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+    float crtime = 1;
+    [SerializeField] private PlayerControllerExample plConEx;
 
     private void OnTriggerStay(Collider other)
     {
+        crtime -= Time.deltaTime;
+
         if(other.tag == "Enemy")
         {
-            Debug.Log("1");
+            if(crtime < 0)
+            {
+                other.GetComponent<EnemyPatrol>().AttackDamage(plConEx.playerAttack);
+                crtime = 1;
+            }
         }
     }
 

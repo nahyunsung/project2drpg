@@ -9,7 +9,8 @@ public class EnemyData
     {
         idle,
         targetmove,
-        attack
+        attack,
+        dead
     }
     public EnemyState enemyState = EnemyState.idle;
 

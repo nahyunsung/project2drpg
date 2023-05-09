@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyPatrol : MonoBehaviour
 {
-    [SerializeField] EnemyData enemyData;
+    [SerializeField] public EnemyData enemyData;
     public GameObject pointA;
     public GameObject pointB;
     private Rigidbody rb;
@@ -31,6 +31,15 @@ public class EnemyPatrol : MonoBehaviour
         if(enemyData.enemyState == EnemyData.EnemyState.idle)
         {
             Idle();
+        }
+
+        if(enemyData.enemyCurHP < 0)
+        {
+            enemyData.enemyState = EnemyData.EnemyState.dead;
+            rb.velocity = new Vector3(0, 0, 0);
+            anim.SetBool("isRunning", false);
+            anim.SetBool("isDead", true);
+            Destroy(gameObject, 1.5f);
         }
     }
 
@@ -70,5 +79,11 @@ public class EnemyPatrol : MonoBehaviour
         Gizmos.DrawWireSphere(pointA.transform.position, 0.5f);
         Gizmos.DrawWireSphere(pointB.transform.position, 0.5f);
         Gizmos.DrawLine(pointA.transform.position, pointB.transform.position);
+    }
+
+    public void AttackDamage(float attack)
+    {
+        enemyData.enemyCurHP -= attack;
+        heartSlider.value = enemyData.enemyCurHP / enemyData.enemyMaxHP;
     }
 }
