@@ -19,6 +19,8 @@ public class PlayerControllerExample : MonoBehaviour
     private bool groundedPlayer;
     Vector3 move;
     bool isDunGo = false;
+    bool isDunExit = false;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -46,6 +48,13 @@ public class PlayerControllerExample : MonoBehaviour
             RenderSettings.skybox = mat[1];
             isDunGo = false;
         }
+        if (isDunExit)
+        {
+            gameObject.transform.localPosition = new Vector3(-9.71f, 0, 0);
+            RenderSettings.skybox = mat[0];
+            isDunExit = false;
+        }
+        
     }
 
     public void OnAttackDown()
@@ -72,6 +81,11 @@ public class PlayerControllerExample : MonoBehaviour
     public void DungeonGo()
     {
         isDunGo = true;
+    }
+
+    public void DungeonExit()
+    {
+        isDunExit = true;
     }
 
     private void OnEnable()
