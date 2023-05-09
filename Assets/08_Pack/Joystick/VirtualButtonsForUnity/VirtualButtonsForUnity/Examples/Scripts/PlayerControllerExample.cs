@@ -79,9 +79,15 @@ public class PlayerControllerExample : MonoBehaviour
         }
         if (isDunExit)
         {
-            gameObject.transform.localPosition = new Vector3(-9.71f, 0, 0);
+            gameObject.transform.localPosition = new Vector3(0, 0, 0);
             RenderSettings.skybox = mat[0];
             isDunExit = false;
+        }
+
+        if(playercurHp < 0)
+        {
+            playercurHp = playerMaxHp;
+            gameObject.transform.localPosition = new Vector3(0, 0, 0);
         }
     }
 
@@ -180,5 +186,15 @@ public class PlayerControllerExample : MonoBehaviour
         */
         //playerVelocity.y += gravityValue * Time.deltaTime;
         //controller.Move(playerVelocity * Time.deltaTime);
+    }
+
+    public void AttackDamage(float damage)
+    {
+        if(playerState == PlayerState.shield)
+        {
+            return;
+        }
+        playercurHp -= damage;
+        Heart.value = playercurHp / playerMaxHp;
     }
 }

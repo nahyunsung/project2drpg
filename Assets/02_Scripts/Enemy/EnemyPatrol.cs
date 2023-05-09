@@ -8,8 +8,8 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField] public EnemyData enemyData;
     public GameObject pointA;
     public GameObject pointB;
-    private Rigidbody rb;
-    [SerializeField] private Animator anim;
+    public Rigidbody rb;
+    [SerializeField] public Animator anim;
     public Transform currentPoint;
     public float speed;
     public Slider heartSlider;
