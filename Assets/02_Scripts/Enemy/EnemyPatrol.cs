@@ -13,6 +13,9 @@ public class EnemyPatrol : MonoBehaviour
     public Transform currentPoint;
     public float speed;
     public Slider heartSlider;
+    [SerializeField] private UiManager uiManager;
+    [SerializeField] private GameObject attackCheck;
+    private bool isMoney = true;
 
     void Start()
     {
@@ -35,7 +38,13 @@ public class EnemyPatrol : MonoBehaviour
 
         if(enemyData.enemyCurHP < 0)
         {
+            attackCheck.SetActive(false);
             enemyData.enemyState = EnemyData.EnemyState.dead;
+            if (isMoney)
+            {
+                uiManager.MoneyUp(enemyData.enemyMoney);
+                isMoney = false;
+            }
             rb.velocity = new Vector3(0, 0, 0);
             anim.SetBool("isRunning", false);
             anim.SetBool("isDead", true);
