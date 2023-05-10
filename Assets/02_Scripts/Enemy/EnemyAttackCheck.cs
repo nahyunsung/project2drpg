@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemyAttackCheck : MonoBehaviour
 {
     [SerializeField] EnemyPatrol enemyPatrol;
-    float crtime = 1.1f;
+    [SerializeField] ShaderScript shaderScript;
+    [SerializeField] float crtime = 1.2f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,16 +21,35 @@ public class EnemyAttackCheck : MonoBehaviour
 
         if (other.tag == "Player")
         {
+            
             if (crtime < 0)
             {
                 other.GetComponent<PlayerControllerExample>().AttackDamage(enemyPatrol.enemyData.enemyDamage);
-                crtime = 1.1f;
+                crtime = 1.2f + 0.15f;
+            }
+            if (crtime < 0.5)
+            {
+                shaderScript.OutlineTrue();
+            }
+            else
+            {
+                shaderScript.OutlineFalse();
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        crtime = 1.2f;
+        shaderScript.OutlineFalse();
+        enemyPatrol.enemyData.enemyState = EnemyData.EnemyState.idle;
+        enemyPatrol.anim.SetBool("isAttack", false);
+    }
+
+    private void OnDisable()
+    {
+        crtime = 1.25f;
+        shaderScript.OutlineFalse();
         enemyPatrol.enemyData.enemyState = EnemyData.EnemyState.idle;
         enemyPatrol.anim.SetBool("isAttack", false);
     }

@@ -1,21 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Numerics;
 using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
     public GameObject InteractionButton;
     public int stateNum;
+    public BigInteger my = 0;
+    public Text moneyText;
+    [SerializeField] private PlayerControllerExample plConExample;
+    GameData gmData;
 
     void Start()
     {
-        
+        gmData = GameObject.Find("GameData").GetComponent<GameData>();
+        gmData.LoadData();
     }
 
     void Update()
     {
         
+    }
+
+    public void OnSaveButton()
+    {
+        gmData.SaveData(plConExample.playerLV, my);
     }
 
     public void InteractionButtonSetTrue()
@@ -45,6 +56,47 @@ public class UiManager : MonoBehaviour
                 GameObject.FindWithTag("Player").GetComponent<PlayerControllerExample>().SendMessage("DungeonExit");
                 break;
             default:
+                break;
+        }
+    }
+
+    public void MoneyUp(float money)
+    {
+        my += (BigInteger)money;
+        MoneyText();
+    }
+
+    public void MoneyText()
+    {
+        switch (my.ToString().Length)
+        {
+            case 1:
+            case 2:
+            case 3:
+                moneyText.text = my.ToString();
+                break;
+            case 4:
+            case 5:
+            case 6:
+                moneyText.text = (my / 1000).ToString() + "K";
+                break;
+            case 7:
+            case 8:
+            case 9:
+                moneyText.text = (my / 1000000).ToString() + "M";
+                break;
+            case 11:
+            case 12:
+            case 10:
+                moneyText.text = (my / 1000000000).ToString() + "B";
+                break;
+            case 13:
+            case 14:
+            case 15:
+                moneyText.text = (my / 1000000000000).ToString() + "T";
+                break;
+            default:
+                moneyText.text = (my.ToString())[0] + "." + (my.ToString())[1] + (my.ToString())[2] + "E" + "+" + ((my.ToString().Length) - 1);
                 break;
         }
     }
