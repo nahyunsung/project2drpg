@@ -2,33 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Numerics;
 using System.IO;
 
 [Serializable]
 public class PlayerData
 {
     public int playerLV;
-    public int gold;
+    public string gold;
 
     public void GetData()
     {
-        Debug.Log("playerLV : " + playerLV);
-        // 데이터 대입
+        PlayerControllerExample plConEx = GameObject.Find("character").GetComponent<PlayerControllerExample>();
+        UiManager uiManager = GameObject.Find("UiManager").GetComponent<UiManager>();
+        plConEx.playerLV = playerLV;
+        uiManager.my = BigInteger.Parse(gold);
     }
 }
 
 public class GameData : MonoBehaviour
 {
-    void Start()
+    private void Start()
     {
-        SaveData();
+        
     }
-
-    public void SaveData()
+    public void SaveData(int playerLv, BigInteger gold)
     {
         PlayerData myData = new PlayerData();
-        myData.playerLV = 10;
-        myData.gold = 12;
+        myData.playerLV = playerLv;
+        myData.gold = gold.ToString();
 
         string str = JsonUtility.ToJson(myData);
 
@@ -49,7 +51,7 @@ public class GameData : MonoBehaviour
         }
         catch(Exception ex)
         {
-            //SaveData();
+            SaveData(1, 0);
         }
     }
 }

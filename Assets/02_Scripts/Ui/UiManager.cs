@@ -10,15 +10,23 @@ public class UiManager : MonoBehaviour
     public int stateNum;
     public BigInteger my = 0;
     public Text moneyText;
+    [SerializeField] private PlayerControllerExample plConExample;
+    GameData gmData;
 
     void Start()
     {
-        
+        gmData = GameObject.Find("GameData").GetComponent<GameData>();
+        gmData.LoadData();
     }
 
     void Update()
     {
         
+    }
+
+    public void OnSaveButton()
+    {
+        gmData.SaveData(plConExample.playerLV, my);
     }
 
     public void InteractionButtonSetTrue()
