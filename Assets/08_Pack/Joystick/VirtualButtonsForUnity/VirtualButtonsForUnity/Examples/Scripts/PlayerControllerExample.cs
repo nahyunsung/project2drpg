@@ -2,9 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerControllerExample : MonoBehaviour
 {
+    public enum PlayerState
+    {
+        idle,
+        run,
+        attack,
+        shield
+    }
 
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
@@ -12,6 +20,7 @@ public class PlayerControllerExample : MonoBehaviour
     [SerializeField] public Animator anim;
     [SerializeField] private Transform dunposition;
     [SerializeField] private List<Material> mat;
+    [SerializeField] private GameObject attackBox;
 
     protected CharacterController controller;
     protected PlayerActionsExample playerInput;
@@ -20,11 +29,26 @@ public class PlayerControllerExample : MonoBehaviour
     Vector3 move;
     bool isDunGo = false;
     bool isDunExit = false;
+    public PlayerState playerState = PlayerState.idle;
+    public Slider Heart;
+
+    public int playerLV = 1;
+    public float playerAttack;
+    public float playerLvUpMoney;
+    public float playerMaxHp;
+    public float playercurHp;
 
     private void Awake()
     {
+        gameObject.transform.position = new Vector3(0, 0, 0);
         controller = GetComponent<CharacterController>();
         playerInput = new PlayerActionsExample();
+
+        playerLvUpMoney = (10 * ((Mathf.Pow(1.06f, 10) - Mathf.Pow(1.06f, 10 + playerLV)) / (1 - 1.06f)));
+        playerAttack = playerLvUpMoney * 0.4f;
+        playerMaxHp = playerLvUpMoney * 2;
+        playercurHp = playerMaxHp;
+        Heart.value = playercurHp / playerMaxHp;
     }
 
     private void FixedUpdate()
@@ -41,7 +65,12 @@ public class PlayerControllerExample : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        if(playerState == PlayerState.idle || playerState == PlayerState.run)
+        {
+            Move();
+        }
+
+
         if (isDunGo)
         {
             gameObject.transform.localPosition = dunposition.position;
@@ -50,32 +79,51 @@ public class PlayerControllerExample : MonoBehaviour
         }
         if (isDunExit)
         {
-            gameObject.transform.localPosition = new Vector3(-9.71f, 0, 0);
+            gameObject.transform.localPosition = new Vector3(0, 0, 0);
             RenderSettings.skybox = mat[0];
             isDunExit = false;
         }
-        
+
+        if(playercurHp < 0)
+        {
+            gameObject.transform.localPosition = new Vector3(0, 0, 0);
+            RenderSettings.skybox = mat[0];
+            playercurHp = playerMaxHp;
+            Heart.value = playercurHp / playerMaxHp;
+        }
     }
 
     public void OnAttackDown()
     {
-        anim.SetBool("isAttack", true);
-        //Debug.Log(anim.GetBool("isAttack"));
+        if(playerState == PlayerState.idle)
+        {
+            playerState = PlayerState.attack;
+            anim.SetBool("isAttack", true);
+            attackBox.SetActive(true);
+            //Debug.Log(anim.GetBool("isAttack"));
+        }
     }
 
     public void OnAttackUp()
     {
         anim.SetBool("isAttack", false);
+        attackBox.SetActive(false);
+        playerState = PlayerState.idle;
     }
 
     public void OnShieldDown()
     {
-        anim.SetBool("isShield", true);
+        if(playerState == PlayerState.idle)
+        {
+            playerState = PlayerState.shield;
+            anim.SetBool("isShield", true);
+        }
     }
 
     public void OnShieldUp()
     {
         anim.SetBool("isShield", false);
+        playerState = PlayerState.idle;
     }
 
     public void DungeonGo()
@@ -114,7 +162,7 @@ public class PlayerControllerExample : MonoBehaviour
 
         if (move != Vector3.zero)
         {
-            
+            playerState = PlayerState.run;
             if (move.x == -1)
             {
                 gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
@@ -123,6 +171,10 @@ public class PlayerControllerExample : MonoBehaviour
             {
                 gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
+        }
+        else
+        {
+            playerState = PlayerState.idle;
         }
         
 
@@ -136,5 +188,15 @@ public class PlayerControllerExample : MonoBehaviour
         */
         //playerVelocity.y += gravityValue * Time.deltaTime;
         //controller.Move(playerVelocity * Time.deltaTime);
+    }
+
+    public void AttackDamage(float damage)
+    {
+        if(playerState == PlayerState.shield)
+        {
+            return;
+        }
+        playercurHp -= damage;
+        Heart.value = playercurHp / playerMaxHp;
     }
 }

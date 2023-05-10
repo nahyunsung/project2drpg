@@ -9,7 +9,8 @@ public class BuildingState : MonoBehaviour
         ArcheryRange,
         Barracks,
         markey,
-        well
+        well,
+        home
     }
 
     [SerializeField] State state = State.ArcheryRange;

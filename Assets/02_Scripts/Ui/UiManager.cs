@@ -41,6 +41,9 @@ public class UiManager : MonoBehaviour
             case 3:
                 GameObject.FindWithTag("Player").GetComponent<PlayerControllerExample>().SendMessage("DungeonGo");
                 break;
+            case 4:
+                GameObject.FindWithTag("Player").GetComponent<PlayerControllerExample>().SendMessage("DungeonExit");
+                break;
             default:
                 break;
         }
