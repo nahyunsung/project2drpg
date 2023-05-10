@@ -15,7 +15,9 @@ public class EnemyPatrol : MonoBehaviour
     public Slider heartSlider;
     [SerializeField] private UiManager uiManager;
     [SerializeField] private GameObject attackCheck;
+    [SerializeField] private ItenManager itemManager;
     private bool isMoney = true;
+    public string dropItem;
 
     void Start()
     {
@@ -42,6 +44,7 @@ public class EnemyPatrol : MonoBehaviour
             enemyData.enemyState = EnemyData.EnemyState.dead;
             if (isMoney)
             {
+                itemManager.ItemCntUp(dropItem);
                 uiManager.MoneyUp(enemyData.enemyMoney);
                 isMoney = false;
             }

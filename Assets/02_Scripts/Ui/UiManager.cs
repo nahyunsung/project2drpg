@@ -8,15 +8,18 @@ public class UiManager : MonoBehaviour
 {
     public GameObject InteractionButton;
     public int stateNum;
-    public BigInteger my = 0;
+    [SerializeField] public BigInteger my = 0;
     public Text moneyText;
     [SerializeField] private PlayerControllerExample plConExample;
     GameData gmData;
 
+    [SerializeField] private GameObject itemPanel;
+    [SerializeField] private ItenManager itemManager;
     void Start()
     {
         gmData = GameObject.Find("GameData").GetComponent<GameData>();
         gmData.LoadData();
+        MoneyText();
     }
 
     void Update()
@@ -48,6 +51,8 @@ public class UiManager : MonoBehaviour
             case 1:
                 break;
             case 2:
+                itemPanel.SetActive(true);
+                itemManager.FindGetItem();
                 break;
             case 3:
                 GameObject.FindWithTag("Player").GetComponent<PlayerControllerExample>().SendMessage("DungeonGo");
