@@ -19,6 +19,25 @@ public class ItenManager : MonoBehaviour
         
     }
 
+    public void ItemCntRoad(List<int> itemCnt)
+    {
+        for(int i = 0; i < itemCnt.Count; i++)
+        {
+            items[i].itemCount = itemCnt[i];
+            items[i].itemCountText.text = itemCnt[i].ToString();
+        }
+    }
+
+    public List<int> ItemCntReturn()
+    {
+        List<int> itemsCnt = new List<int>();
+        foreach (ItemData one in items)
+        {
+            itemsCnt.Add(one.itemCount);
+        }
+        return itemsCnt;
+    }
+
     public void ItemCntUp(string findName)
     {
         filter_items = items.
@@ -38,7 +57,6 @@ public class ItenManager : MonoBehaviour
             ToList();
         foreach (ItemData one in filter_items)
         {
-            Debug.Log("adsf");
             one.itemCover.SetActive(false);
         }
     }

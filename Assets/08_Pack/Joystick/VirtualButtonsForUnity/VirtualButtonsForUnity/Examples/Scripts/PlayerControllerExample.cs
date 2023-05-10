@@ -44,11 +44,7 @@ public class PlayerControllerExample : MonoBehaviour
         controller = GetComponent<CharacterController>();
         playerInput = new PlayerActionsExample();
 
-        playerLvUpMoney = (10 * ((Mathf.Pow(1.06f, 10) - Mathf.Pow(1.06f, 10 + playerLV)) / (1 - 1.06f)));
-        playerAttack = playerLvUpMoney * 0.4f;
-        playerMaxHp = playerLvUpMoney * 2;
-        playercurHp = playerMaxHp;
-        Heart.value = playercurHp / playerMaxHp;
+        PlayerDataCalculate();
     }
 
     private void FixedUpdate()
@@ -197,6 +193,15 @@ public class PlayerControllerExample : MonoBehaviour
             return;
         }
         playercurHp -= damage;
+        Heart.value = playercurHp / playerMaxHp;
+    }
+
+    public void PlayerDataCalculate()
+    {
+        playerLvUpMoney = (10 * ((Mathf.Pow(1.06f, 10) - Mathf.Pow(1.06f, 10 + playerLV)) / (1 - 1.06f)));
+        playerAttack = playerLvUpMoney * 0.4f;
+        playerMaxHp = playerLvUpMoney * 2;
+        playercurHp = playerMaxHp;
         Heart.value = playercurHp / playerMaxHp;
     }
 }

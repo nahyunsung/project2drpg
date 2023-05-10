@@ -10,13 +10,20 @@ public class PlayerData
 {
     public int playerLV;
     public string gold;
+    public List<int> itemcntCount;
 
     public void GetData()
     {
         PlayerControllerExample plConEx = GameObject.Find("character").GetComponent<PlayerControllerExample>();
         UiManager uiManager = GameObject.Find("UiManager").GetComponent<UiManager>();
+        ItenManager itemManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<ItenManager>();
         plConEx.playerLV = playerLV;
         uiManager.my = BigInteger.Parse(gold);
+        if(itemcntCount.Count != 0)
+        {
+            Debug.Log(itemManager);
+            itemManager.ItemCntRoad(itemcntCount);
+        }
     }
 }
 
@@ -26,11 +33,12 @@ public class GameData : MonoBehaviour
     {
         
     }
-    public void SaveData(int playerLv, BigInteger gold)
+    public void SaveData(int playerLv, BigInteger gold, List<int> itemsCnt)
     {
         PlayerData myData = new PlayerData();
         myData.playerLV = playerLv;
         myData.gold = gold.ToString();
+        myData.itemcntCount = itemsCnt;
 
         string str = JsonUtility.ToJson(myData);
 
@@ -46,12 +54,13 @@ public class GameData : MonoBehaviour
         try
         {
             string jsonData = File.ReadAllText(Application.persistentDataPath + "/PlayerData.json");
+            Debug.Log(jsonData);
             PlayerData myData = JsonUtility.FromJson<PlayerData>(jsonData);
             myData.GetData();
         }
         catch(Exception ex)
         {
-            SaveData(1, 0);
+            SaveData(1, 0, null);
         }
     }
 }
