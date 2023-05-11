@@ -8,15 +8,22 @@ public class UiManager : MonoBehaviour
 {
     public GameObject InteractionButton;
     public int stateNum;
-    public BigInteger my = 0;
+    [SerializeField] public BigInteger my;
     public Text moneyText;
-    [SerializeField] private PlayerControllerExample plConExample;
     GameData gmData;
+
+    [SerializeField] private PlayerControllerExample plConExample;
+    [SerializeField] private ItenManager itemManager;
+    
+    [SerializeField] private GameObject itemPanel;
+    [SerializeField] private GameObject traningPanel;
+    [SerializeField] private GameObject equipmentPanel;
 
     void Start()
     {
         gmData = GameObject.Find("GameData").GetComponent<GameData>();
         gmData.LoadData();
+        MoneyText();
     }
 
     void Update()
@@ -26,7 +33,7 @@ public class UiManager : MonoBehaviour
 
     public void OnSaveButton()
     {
-        gmData.SaveData(plConExample.playerLV, my);
+        gmData.SaveData(plConExample.playerLV, my,itemManager.ItemCntReturn());
     }
 
     public void InteractionButtonSetTrue()
@@ -44,16 +51,20 @@ public class UiManager : MonoBehaviour
         switch (stateNum)
         {
             case 0:
+                traningPanel.SetActive(true);
                 break;
             case 1:
+                equipmentPanel.SetActive(true);
                 break;
             case 2:
+                itemPanel.SetActive(true);
+                itemManager.FindGetItem();
                 break;
             case 3:
-                GameObject.FindWithTag("Player").GetComponent<PlayerControllerExample>().SendMessage("DungeonGo");
+                plConExample.SendMessage("DungeonGo");
                 break;
             case 4:
-                GameObject.FindWithTag("Player").GetComponent<PlayerControllerExample>().SendMessage("DungeonExit");
+                plConExample.SendMessage("DungeonExit");
                 break;
             default:
                 break;
@@ -99,5 +110,22 @@ public class UiManager : MonoBehaviour
                 moneyText.text = (my.ToString())[0] + "." + (my.ToString())[1] + (my.ToString())[2] + "E" + "+" + ((my.ToString().Length) - 1);
                 break;
         }
+    }
+
+    public void PlayerLvUp()
+    {
+        if(plConExample.playerLvUpMoney <= (float)my)
+        {
+            plConExample.playerLV += 1;
+            my -= (BigInteger)plConExample.playerLvUpMoney;
+            plConExample.PlayerDataCalculate();
+            MoneyText();
+        }
+    }
+
+    public void MoneyCopy()
+    {
+        my += 10000;
+        MoneyText();
     }
 }
