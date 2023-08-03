@@ -19,6 +19,7 @@ public class VirtualDPad : OnScreenControl, IPointerDownHandler, IPointerUpHandl
     [SerializeField] private float moveThreshold = 0f;
     [SerializeField] private float uiMovementRange = 10f;
     [SerializeField] private bool forceIntValue = true;
+    [SerializeField] private PlayerControllerExample playerControllerExample;
 
     private Vector3 startPos;
 
@@ -50,6 +51,13 @@ public class VirtualDPad : OnScreenControl, IPointerDownHandler, IPointerUpHandl
     {
         if (eventData == null)
             throw new System.ArgumentNullException(nameof(eventData));
+
+        
+        if (playerControllerExample.playerState == PlayerState.run)
+        {
+            Debug.Log("Asdf");
+            return;
+        }
         
         OnDrag(eventData);
     }

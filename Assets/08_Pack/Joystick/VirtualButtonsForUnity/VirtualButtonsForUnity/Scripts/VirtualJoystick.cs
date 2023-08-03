@@ -28,13 +28,14 @@ public class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     protected virtual void Awake()
     {
-        canvas = GetComponentInParent<Canvas>();
-        baseRect = GetComponent<RectTransform>();
+        canvas = GetComponentInParent<Canvas>(); // floating
+        baseRect = GetComponent<RectTransform>(); // floating
+
         bgCanvasGroup = centerArea.GetComponent<CanvasGroup>();
         handleStickController = handle.gameObject.AddComponent<OnScreenStick>();
         handleStickController.movementRange = movementRange;
         handleStickController.controlPath = stickControlPath;
-
+        
         Vector2 center = new Vector2(0.5f, 0.5f);
         centerArea.pivot = center;
         handle.anchorMin = center;
@@ -60,6 +61,7 @@ public class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     {
         PointerEventData constructedEventData = new PointerEventData(EventSystem.current);
         constructedEventData.position = handle.position;
+
         handleStickController.OnPointerDown(constructedEventData);
 
         if (joystickType == VirtualJoystickType.Floating)
@@ -91,11 +93,14 @@ public class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         }
 
         PointerEventData constructedEventData = new PointerEventData(EventSystem.current);
+
         constructedEventData.position = Vector2.zero;
 
         handleStickController.OnPointerUp(constructedEventData);
     }
 
+
+    // floating 일때 사용하는 함수
     protected Vector2 GetAnchoredPosition(Vector2 screenPosition)
     {
         Camera cam = (canvas.renderMode == RenderMode.ScreenSpaceCamera) ? canvas.worldCamera : null;

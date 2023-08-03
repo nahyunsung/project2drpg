@@ -4,16 +4,19 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+public enum PlayerState
+{
+    idle,
+    run,
+    comboattack,
+    frontattack,
+    shield
+}
+
 public class PlayerControllerExample : MonoBehaviour
 {
-    public enum PlayerState
-    {
-        idle,
-        run,
-        attack,
-        shield
-    }
 
+    float delayTime = 5f;
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
@@ -89,22 +92,31 @@ public class PlayerControllerExample : MonoBehaviour
         }
     }
 
-    public void OnAttackDown()
+    public void OnComboAttackUp()
     {
         if(playerState == PlayerState.idle)
         {
-            playerState = PlayerState.attack;
+            playerState = PlayerState.comboattack;
             anim.SetBool("isAttack", true);
-            attackBox.SetActive(true);
-            //Debug.Log(anim.GetBool("isAttack"));
         }
     }
 
-    public void OnAttackUp()
+    public void OnFrontAttack()
     {
-        anim.SetBool("isAttack", false);
-        attackBox.SetActive(false);
-        playerState = PlayerState.idle;
+        if(playerState == PlayerState.idle)
+        {
+            playerState = PlayerState.frontattack;
+            anim.SetBool("isFrontAttack", true);
+        }
+    }
+
+    public void OnUpAttack()
+    {
+        if (playerState == PlayerState.idle)
+        {
+            playerState = PlayerState.frontattack;
+            anim.SetBool("isUpAttack", true);
+        }
     }
 
     public void OnShieldDown()
@@ -170,6 +182,7 @@ public class PlayerControllerExample : MonoBehaviour
         }
         else
         {
+            StartCoroutine(MoveDelay());
             playerState = PlayerState.idle;
         }
         
@@ -203,5 +216,10 @@ public class PlayerControllerExample : MonoBehaviour
         playerMaxHp = playerLvUpMoney * 2;
         playercurHp = playerMaxHp;
         Heart.value = playercurHp / playerMaxHp;
+    }
+
+    IEnumerator MoveDelay()
+    {
+        yield return new WaitForSeconds(delayTime);
     }
 }
