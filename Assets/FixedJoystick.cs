@@ -38,7 +38,7 @@ public class FixedJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log("touch : " + handle.anchoredPosition);
+        //Debug.Log("touch : " + handle.anchoredPosition);
 
         //위에 x -15 ~ 15 y >= 75
         if(handle.anchoredPosition.x <= 15 && handle.anchoredPosition.x >= -15 && handle.anchoredPosition.y  >= 75)
@@ -49,12 +49,12 @@ public class FixedJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         //아래 x -15 ~ 15 y  <=-75
         else if (handle.anchoredPosition.x <= 15 && handle.anchoredPosition.x >= -15 && handle.anchoredPosition.y <= -75)
         {
-            Debug.Log("아래");
+            //Debug.Log("아래");
         }
         //왼쪽 x <=-75 y -15 ~ 15
         else if (handle.anchoredPosition.y <= 15 && handle.anchoredPosition.y >= -15 && handle.anchoredPosition.x <= -75)
         {
-            Debug.Log("왼쪽");
+            //Debug.Log("왼쪽");
         }
         //오른쪽 x >=75 y -15 ~ 15
         else if (handle.anchoredPosition.y <= 15 && handle.anchoredPosition.y >= -15 && handle.anchoredPosition.x >= 75)

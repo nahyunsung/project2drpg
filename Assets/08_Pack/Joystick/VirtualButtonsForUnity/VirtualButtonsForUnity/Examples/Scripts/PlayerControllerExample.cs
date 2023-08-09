@@ -8,7 +8,9 @@ public enum PlayerState
 {
     idle,
     run,
-    comboattack,
+    comboattack1,
+    comboattack2,
+    comboattack3,
     frontattack,
     shield
 }
@@ -96,8 +98,16 @@ public class PlayerControllerExample : MonoBehaviour
     {
         if(playerState == PlayerState.idle)
         {
-            playerState = PlayerState.comboattack;
+            playerState = PlayerState.comboattack1;
             anim.SetBool("isAttack", true);
+        }
+        else if(playerState == PlayerState.comboattack1 && anim.GetBool("isAttack"))
+        {
+            playerState = PlayerState.comboattack2;
+        }
+        else if (playerState == PlayerState.comboattack2 && anim.GetBool("isAttack2"))
+        {
+            playerState = PlayerState.comboattack3;
         }
     }
 
@@ -130,8 +140,11 @@ public class PlayerControllerExample : MonoBehaviour
 
     public void OnShieldUp()
     {
-        anim.SetBool("isShield", false);
-        playerState = PlayerState.idle;
+        if (playerState == PlayerState.shield)
+        {
+            anim.SetBool("isShield", false);
+            playerState = PlayerState.idle;
+        }
     }
 
     public void DungeonGo()

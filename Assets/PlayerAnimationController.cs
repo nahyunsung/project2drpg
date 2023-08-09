@@ -20,7 +20,43 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void AniIsAttackFalse()
     {
+        if(playerControllerExample.playerState == PlayerState.comboattack1)
+        {
+            ani.SetBool("isAttack", false);
+            playerControllerExample.playerState = PlayerState.idle;
+        }
+        else if(playerControllerExample.playerState == PlayerState.comboattack2)
+        {
+            ani.SetBool("isAttack2", true);
+        }
+    }
+
+    public void AniIsAttack2Start()
+    {
         ani.SetBool("isAttack", false);
+    }
+
+    public void AniIsAttack2End()
+    {
+        if (playerControllerExample.playerState == PlayerState.comboattack2)
+        {
+            ani.SetBool("isAttack2", false);
+            playerControllerExample.playerState = PlayerState.idle;
+        }
+        else if (playerControllerExample.playerState == PlayerState.comboattack3)
+        {
+            ani.SetBool("isAttack3", true);
+        }
+    }
+
+    public void AniIsAttack3Start()
+    {
+        ani.SetBool("isAttack2", false);
+    }
+
+    public void AniIsAttack3End()
+    {
+        ani.SetBool("isAttack3", false);
         playerControllerExample.playerState = PlayerState.idle;
     }
 

@@ -31,7 +31,7 @@ public class EnemyAttackCheck : MonoBehaviour
             }
             if (chcrtime < 0.6)
             {
-                shaderScript.OutlineTrue();
+                shaderScript.OutlineFrontTrue();
             }
             else
             {

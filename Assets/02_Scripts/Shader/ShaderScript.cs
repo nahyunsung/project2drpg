@@ -5,7 +5,8 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class ShaderScript : MonoBehaviour
 {
-    public Color color = Color.white;
+    public Color Frontcolor = Color.red;
+    public Color Uptcolor = Color.yellow;
 
     [Range(0, 16)]
     public int outlineSize = 1;
@@ -22,22 +23,26 @@ public class ShaderScript : MonoBehaviour
         //UpdateOutline(true);
     }
 
-    public void OutlineTrue()
+    public void OutlineFrontTrue()
     {
-        UpdateOutline(true);
+        UpdateOutline(true, Frontcolor);
+    }
+    public void OutlineUpTrue()
+    {
+        UpdateOutline(true, Uptcolor);
     }
 
     public void OutlineFalse()
     {
-        UpdateOutline(false);
+        UpdateOutline(false, Color.white);
     }
 
-    void UpdateOutline(bool outline)
+    void UpdateOutline(bool outline, Color outColor)
     {
         MaterialPropertyBlock mpb = new MaterialPropertyBlock();
         spriteRenderer.GetPropertyBlock(mpb);
         mpb.SetFloat("_Outline", outline ? 16f : 0);
-        mpb.SetColor("_OutlineColor", color);
+        mpb.SetColor("_OutlineColor", outColor);
         mpb.SetFloat("_OutlineSize", outlineSize);
         spriteRenderer.SetPropertyBlock(mpb);
     }
