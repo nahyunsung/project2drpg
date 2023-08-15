@@ -7,4 +7,6 @@ public class EnemySkill
 {
     public string aniParameterName;
     public int skillDamage;
+    public int skilWeight;
+    public float skilCoolDown;
 }

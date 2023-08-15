@@ -11,7 +11,19 @@ public class EnemyCheak : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            other.GetComponent<EnemyPatrol>().AttackDamage(plConEx.playerAttack);
+            EnemyManager enemyManager = other.GetComponent<EnemyManager>();
+
+
+            if (plConEx.anim.GetBool("isFrontAttack") && enemyManager.enemyParrying == EnemyParrying.frontParrying ||
+                plConEx.anim.GetBool("isUpAttack") && enemyManager.enemyParrying == EnemyParrying.upParrying)
+            {
+                enemyManager.EnemyStiffness();
+            }
+            else
+            {
+                //other.GetComponent<EnemyPatrol>().AttackDamage(plConEx.playerAttack);
+                enemyManager.AttackDamage(plConEx.playerAttack);
+            }
         }
     }
 }

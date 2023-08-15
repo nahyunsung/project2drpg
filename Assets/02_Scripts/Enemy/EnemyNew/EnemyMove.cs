@@ -14,14 +14,21 @@ public class EnemyMove : MonoBehaviour
     public float traceDistance = 1f;
     private Transform player;
 
+    public Vector3 EnemyOriPosition;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        EnemyOriPosition = GetComponent<Transform>().position;
     }
 
     void Update()
     {
+        if(enemyManager.enemyState == EnemyState.attack || enemyManager.enemyState == EnemyState.death)
+        {
+            return;
+        } 
 
         Vector2 direction = player.position - (transform.position + new Vector3(transform.localScale.x * 1,0, 0));
         if (direction.magnitude > traceDistance)
@@ -39,7 +46,7 @@ public class EnemyMove : MonoBehaviour
         }
         else if(enemyManager.enemyState == EnemyState.idle)
         {
-            Playeridle();
+            Enemyidle();
         }
 
         
@@ -56,33 +63,29 @@ public class EnemyMove : MonoBehaviour
         {
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
         }
+
+        if(this.gameObject.transform.position.x > EnemyOriPosition.x + 7)
+        {
+            isMovingRight = false;
+            flip(-1);
+        }
+        else if(this.gameObject.transform.position.x < EnemyOriPosition.x - 7)
+        {
+            isMovingRight = true;
+            flip(1);
+        }
     }
 
-    public void Playeridle()
+    public void Enemyidle()
     {
         rb.velocity = new Vector2(0, 0);
         enemyManager.ani.SetBool("isRun", false);
     }
 
-    public void flip()
+    public void flip(int x)
     {
         Vector3 localScale = transform.localScale;
-        localScale.x *= -1;
+        localScale.x = x;
         transform.localScale = localScale;
-    }
-
-
-    private void OnTriggerEnter(Collider collision)
-    {
-        if(!(enemyManager.enemyState == EnemyState.run))
-        {
-            return;
-        }
-
-        if (collision.CompareTag("Boundary"))
-        {
-            isMovingRight = !isMovingRight;
-            flip();
-        }
     }
 }
