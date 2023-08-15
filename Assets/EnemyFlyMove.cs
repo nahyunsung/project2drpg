@@ -10,6 +10,8 @@ public class EnemyFlyMove : MonoBehaviour
     private Transform player;
     public EnemyManager enemyManager;
     public GameObject fireBall;
+    public float collDownTime = 0;
+    public float setCollDownTime = 4;
 
     void Start()
     {
@@ -34,9 +36,12 @@ public class EnemyFlyMove : MonoBehaviour
         {
             flip(-1);
         }
-        else
+        else if(collDownTime < 0)
         {
-                
+            GameObject FireBallObject = Instantiate(fireBall);
+            FireBallObject.transform.position = transform.position - new Vector3(0, 1, 0);
+            FireBallObject.transform.rotation = Quaternion.Euler(0, 0, -90);
+            collDownTime = setCollDownTime;
         }
         
     }

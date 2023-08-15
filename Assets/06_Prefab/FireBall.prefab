@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8903138751615165294}
   - component: {fileID: 8903138751615165281}
   - component: {fileID: 8903138751615165280}
+  - component: {fileID: 6160245045509735384}
   m_Layer: 0
   m_Name: FireBall
   m_TagString: Untagged
@@ -98,3 +99,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+--- !u!65 &6160245045509735384
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903138751615165283}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9375, y: 0.5, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
