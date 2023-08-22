@@ -7,10 +7,10 @@ public class EnemyFlyMove : MonoBehaviour
     public float moveSpeed = .5f;
     public float traceDistance = 2f;
 
-    private Transform player;
+    public Transform player;
     public EnemyManager enemyManager;
     public GameObject fireBall;
-    public float collDownTime = 0;
+    public float collDownTime = 1;
     public float setCollDownTime = 4;
 
     void Start()
@@ -23,6 +23,7 @@ public class EnemyFlyMove : MonoBehaviour
         Vector2 direction = player.position - transform.position;
         if (direction.magnitude > traceDistance)
             return;
+        collDownTime -= Time.deltaTime;
 
         Vector3 targetPosition = transform.position;
         targetPosition.x = player.position.x;
