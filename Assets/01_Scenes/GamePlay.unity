@@ -20154,11 +20154,11 @@ MonoBehaviour:
   enemySkills:
   - aniParameterName: isAttack
     skillDamage: 0
-    skilWeight: 0
+    skilWeight: 6
     skilCoolDown: 3
   - aniParameterName: isHowl
     skillDamage: 0
-    skilWeight: 0
+    skilWeight: 3
     skilCoolDown: 5
   - aniParameterName: isSpAttack
     skillDamage: 0

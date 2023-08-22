@@ -13194,7 +13194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc8194fd478ca545acfa906ad569041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.01
+  moveSpeed: 0.03
   traceDistance: 10
   enemyManager: {fileID: 519600993}
   fireBall: {fileID: 8903138751615165283, guid: 3d77316075adca04988b543121be79d8, type: 3}
@@ -47154,7 +47154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1745611378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.48, y: 0, z: 0}
+  m_LocalPosition: {x: 35.9, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
