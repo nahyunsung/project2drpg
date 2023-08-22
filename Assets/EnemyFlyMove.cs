@@ -12,7 +12,7 @@ public class EnemyFlyMove : MonoBehaviour
     public GameObject fireBall;
     public float collDownTime = 1;
     public float setCollDownTime = 4;
-
+    Vector3 targetPosition;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -20,12 +20,20 @@ public class EnemyFlyMove : MonoBehaviour
 
     void Update()
     {
+        if(enemyManager.enemyData.enemyCurHP < enemyManager.enemyData.enemyMaxHP - enemyManager.enemyData.enemyMaxHP/5)
+        {
+            targetPosition = transform.position;
+            targetPosition.y = -4.74f;
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed);
+            return;
+        }
+
         Vector2 direction = player.position - transform.position;
         if (direction.magnitude > traceDistance)
             return;
         collDownTime -= Time.deltaTime;
 
-        Vector3 targetPosition = transform.position;
+        targetPosition = transform.position;
         targetPosition.x = player.position.x;
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed);
 

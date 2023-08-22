@@ -25,5 +25,12 @@ public class EnemyCheak : MonoBehaviour
                 enemyManager.AttackDamage(plConEx.playerAttack);
             }
         }
+
+        if (other.CompareTag("InteractionObject") && plConEx.anim.GetBool("isUpAttack"))
+        {
+            Transform obj = other.GetComponent<Transform>();
+            obj.transform.localEulerAngles = new Vector3(0, 0, 90);
+            other.GetComponent<FireBallScript>().fireBallOner = FireBallOner.player;
+        }
     }
 }
