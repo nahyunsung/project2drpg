@@ -20237,6 +20237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a281bb1c42a81e04a90f87bf0352f643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ani: {fileID: 670649871}
 --- !u!212 &670649873
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -35462,8 +35463,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0.03
   traceDistance: 10
-  player: {fileID: 0}
+  player: {fileID: 670649874}
   enemyManager: {fileID: 1235548384}
+  dragonAniController: {fileID: 670649872}
   fireBall: {fileID: 8903138751615165283, guid: 3d77316075adca04988b543121be79d8, type: 3}
   collDownTime: 0
   setCollDownTime: 4
@@ -35500,7 +35502,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235548380}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.65, y: 5.72, z: 0}
+  m_LocalPosition: {x: 153.2, y: 5.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

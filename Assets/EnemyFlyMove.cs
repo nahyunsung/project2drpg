@@ -9,10 +9,12 @@ public class EnemyFlyMove : MonoBehaviour
 
     public Transform player;
     public EnemyManager enemyManager;
+    public DragonAniController dragonAniController;
     public GameObject fireBall;
     public float collDownTime = 1;
     public float setCollDownTime = 4;
     Vector3 targetPosition;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -23,8 +25,9 @@ public class EnemyFlyMove : MonoBehaviour
         if(enemyManager.enemyData.enemyCurHP < enemyManager.enemyData.enemyMaxHP - enemyManager.enemyData.enemyMaxHP/5)
         {
             targetPosition = transform.position;
-            targetPosition.y = -4.74f;
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed);
+            targetPosition.y = 0f;
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed+0.3f);
+            dragonAniController.DragonFallTrue();
             return;
         }
 
